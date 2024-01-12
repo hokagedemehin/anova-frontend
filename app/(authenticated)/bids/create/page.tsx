@@ -114,14 +114,14 @@ const CreateBid = () => {
     <div>
       <Typography
         variant="h4"
-        className="font-outfit text-center text-xl font-bold md:text-2xl"
+        className="text-center font-outfit text-xl font-bold md:text-2xl"
       >
         Create Bid
       </Typography>
       <div className="p-4">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mx-auto flex max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md"
+          className="mx-auto flex max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 bg-white p-4 shadow-md"
         >
           <div className="flex w-full flex-col space-y-5">
             <Controller
@@ -143,7 +143,7 @@ const CreateBid = () => {
                   helperText={errors.quantity ? errors.quantity.message : null}
                   InputProps={{
                     endAdornment: (
-                      <Typography className="font-outfit ml-2">MWh</Typography>
+                      <Typography className="ml-2 font-outfit">MWh</Typography>
                     ),
                     "aria-label": "Quantity",
                   }}
@@ -216,7 +216,7 @@ const CreateBid = () => {
                   helperText={errors.price ? errors.price.message : null}
                   InputProps={{
                     endAdornment: (
-                      <Typography className="font-outfit ml-2 w-[5.8rem]">
+                      <Typography className="ml-2 w-[5.8rem] font-outfit">
                         EUR/MWh
                       </Typography>
                     ),
@@ -231,7 +231,7 @@ const CreateBid = () => {
               variant="contained"
               color="primary"
               type="submit"
-              className="font-outfit hover:bg-signInBgHover bg-signInBg px-7 normal-case text-white"
+              className="bg-signInBg px-7 font-outfit normal-case text-white hover:bg-signInBgHover"
               disabled={isSubmitting}
             >
               Submit

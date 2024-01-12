@@ -147,7 +147,7 @@ const BidUpdate = () => {
       <div className="flex items-center justify-between space-x-4">
         <IconButton
           color="primary"
-          className="font-outfit hover:bg-signInBgHover bg-signInBg normal-case text-white"
+          className="bg-signInBg font-outfit normal-case text-white hover:bg-signInBgHover"
           onClick={() => {
             router.push("/bids");
             dispatch(setBackdropOpen());
@@ -158,7 +158,7 @@ const BidUpdate = () => {
         <div className="w-full">
           <Typography
             variant="h4"
-            className="font-outfit text-center text-xl font-bold md:text-2xl"
+            className="text-center font-outfit text-xl font-bold md:text-2xl"
           >
             Update Bid
           </Typography>
@@ -167,7 +167,7 @@ const BidUpdate = () => {
       <div className="p-4">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mx-auto flex max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md"
+          className="mx-auto flex max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 bg-white p-4 shadow-md"
         >
           <div className="flex w-full flex-col space-y-5">
             <Controller
@@ -189,7 +189,7 @@ const BidUpdate = () => {
                   helperText={errors.quantity ? errors.quantity.message : null}
                   InputProps={{
                     endAdornment: (
-                      <Typography className="font-outfit ml-2">MWh</Typography>
+                      <Typography className="ml-2 font-outfit">MWh</Typography>
                     ),
                     "aria-label": "Quantity",
                     readOnly: singleBidData?.status === "Approved",
@@ -270,7 +270,7 @@ const BidUpdate = () => {
                   helperText={errors.price ? errors.price.message : null}
                   InputProps={{
                     endAdornment: (
-                      <Typography className="font-outfit ml-2 w-[5.8rem]">
+                      <Typography className="ml-2 w-[5.8rem] font-outfit">
                         EUR/MWh
                       </Typography>
                     ),
@@ -280,6 +280,16 @@ const BidUpdate = () => {
                 />
               )}
             />
+            {singleBidData?.status === "Rejected" && (
+              <div className="flex flex-col space-y-1">
+                <Typography variant="body2" className="font-outfit font-bold">
+                  Reason
+                </Typography>
+                <Typography variant="body2" className="font-outfit">
+                  {singleBidData?.reason}
+                </Typography>
+              </div>
+            )}
           </div>
           <div className="py-4">
             {singleBidData && singleBidData.status === "Approved" && (
@@ -295,7 +305,7 @@ const BidUpdate = () => {
                 variant="contained"
                 color="primary"
                 type="submit"
-                className="font-outfit hover:bg-signInBgHover bg-signInBg px-7 normal-case text-white"
+                className="bg-signInBg px-7 font-outfit normal-case text-white hover:bg-signInBgHover"
                 disabled={isSubmitting}
               >
                 Update

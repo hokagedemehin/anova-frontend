@@ -87,10 +87,10 @@ const LoginScreen = () => {
   return (
     <div>
       <CustomBackdrop />
-      <div className="flex flex-col p-4">
+      <div className="flex w-full flex-col items-center justify-center p-4 ">
         <Typography
           variant="h4"
-          className="font-outfit text-2xl font-bold md:text-3xl"
+          className="text-center font-outfit text-2xl font-bold md:text-3xl"
         >
           Welcome Back
         </Typography>
@@ -195,7 +195,7 @@ const LoginScreen = () => {
                 className={`w-full transform  transition duration-500 ease-in-out   md:w-[20rem] ${
                   isSubmitting
                     ? "cursor-not-allowed bg-gray-300 opacity-50"
-                    : "bg-signInBg hover:bg-signInBgHover text-white"
+                    : "bg-signInBg text-white hover:bg-signInBgHover"
                 }`}
                 disabled={isSubmitting}
               >

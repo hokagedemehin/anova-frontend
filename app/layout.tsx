@@ -24,7 +24,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable}`}>
+      <body
+        className={`${outfit.variable} bg-white bg-opacity-50 bg-[url('https://res.cloudinary.com/luvely/image/upload/v1705068603/polygon-scatter-haikei_3_kpjwbx.png')]  bg-contain bg-repeat backdrop-blur-[2px] backdrop-filter`}
+      >
         <ProjectProviders>
           <HeaderComp />
           {children}

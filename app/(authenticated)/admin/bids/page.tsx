@@ -85,7 +85,7 @@ const StatusChip = (props: GridRenderCellParams<any, string>) => {
     <Chip
       label={props.value?.toLowerCase()}
       size="small"
-      className={`font-outfit px-2 py-[14px]  ${
+      className={`px-2 py-[14px] font-outfit  ${
         props.value === "Pending" && "bg-orange-100 text-orange-700"
       }
       ${props.value === "Approved" && "bg-green-100 text-green-700"}
@@ -105,7 +105,7 @@ const EmptyDataDisplay = () => {
       />
       <Typography
         variant="body1"
-        className="font-outfit text-center text-sm font-medium text-black"
+        className="text-center font-outfit text-sm font-medium text-black"
       >
         No bids yet
       </Typography>
@@ -124,7 +124,7 @@ const NoSearchResultDataDisplay = () => {
       />
       <Typography
         variant="body1"
-        className="font-outfit text-center text-sm font-medium text-black"
+        className="text-center font-outfit text-sm font-medium text-black"
       >
         No search result found
       </Typography>
@@ -471,7 +471,7 @@ const AdminBidsPage = () => {
     <div className="">
       <Typography
         variant="h5"
-        className="font-outfit pb-5 font-semibold text-black"
+        className="pb-5 font-outfit font-semibold text-black"
       >
         All Bids
       </Typography>
@@ -493,10 +493,10 @@ const AdminBidsPage = () => {
             noResultsOverlay: NoSearchResultDataDisplay,
             toolbar: CustomToolBar,
           }}
-          // onRowClick={(params) => {
-          //   dispatch(setBackdropOpen());
-          //   pushRoute(`${routes.admin_bids_page}/${params.id}`);
-          // }}
+          onRowClick={(params) => {
+            dispatch(setBackdropOpen());
+            pushRoute(`${routes.admin_bids_page}/${params.id}`);
+          }}
           disableRowSelectionOnClick
         />
       </Box>
@@ -511,7 +511,7 @@ const AdminBidsPage = () => {
           Reason for rejection
         </DialogTitle>
         <DialogContent>
-          <DialogContentText className="font-outfit pb-4 text-gray-700">
+          <DialogContentText className="pb-4 font-outfit text-gray-700">
             Please enter the reason for rejecting the bid.
           </DialogContentText>
           <TextField

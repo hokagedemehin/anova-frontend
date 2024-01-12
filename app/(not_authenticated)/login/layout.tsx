@@ -41,7 +41,7 @@ export default async function LoginLayout({
     redirect("/bids");
   }
   return (
-    <main className=" bg-background relative flex min-h-screen max-w-screen-xl flex-col pt-[4rem]">
+    <main className=" bg-background relative mx-auto flex min-h-screen max-w-screen-xl flex-col pt-[4rem]">
       <CustomBackdrop />
 
       <div className=" w-full px-3 py-2">{children}</div>

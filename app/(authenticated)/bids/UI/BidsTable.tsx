@@ -58,7 +58,7 @@ const StatusChip = (props: GridRenderCellParams<any, string>) => {
     <Chip
       label={props.value?.toLowerCase()}
       size="small"
-      className={`font-outfit px-2 py-[14px]  ${
+      className={`px-2 py-[14px] font-outfit  ${
         props.value === "Pending" && "bg-orange-100 text-orange-700"
       }
       ${props.value === "Approved" && "bg-green-100 text-green-700"}
@@ -78,7 +78,7 @@ const EmptyDataDisplay = () => {
       />
       <Typography
         variant="body1"
-        className="font-outfit text-center text-sm font-medium text-black"
+        className="text-center font-outfit text-sm font-medium text-black"
       >
         No bids yet
       </Typography>
@@ -97,7 +97,7 @@ const NoSearchResultDataDisplay = () => {
       />
       <Typography
         variant="body1"
-        className="font-outfit text-center text-sm font-medium text-black"
+        className="text-center font-outfit text-sm font-medium text-black"
       >
         No search result found
       </Typography>
@@ -215,10 +215,10 @@ const BidsTable = () => {
           noResultsOverlay: NoSearchResultDataDisplay,
           toolbar: CustomToolBar,
         }}
-        // onRowClick={(params: any) => {
-        //   dispatch(setBackdropOpen());
-        //   pushRoute(`/bids/${params.id}`);
-        // }}
+        onRowClick={(params: any) => {
+          dispatch(setBackdropOpen());
+          pushRoute(`/bids/${params.id}`);
+        }}
         disableRowSelectionOnClick
       />
     </Box>

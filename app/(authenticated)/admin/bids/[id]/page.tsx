@@ -1,11 +1,16 @@
 "use client";
 import { useCloseBackdrop } from "@/hooks/backdrop";
 import {
+  useAdminBidHistory,
   useCreateBidHistory,
   useSingleAdminBid,
   useUpdateAdminBid,
 } from "@/hooks/bidHooks";
-import { ICreateBidTypes, IUpdatedBidType } from "@/interface/bidsTypes";
+import {
+  ICreateBidTypes,
+  ISingleHistory,
+  IUpdatedBidType,
+} from "@/interface/bidsTypes";
 import {
   setBackdropClose,
   setBackdropOpen,
@@ -30,6 +35,14 @@ import { useForm, Controller } from "react-hook-form";
 import dayjs from "dayjs";
 import { AxiosError, AxiosResponse } from "axios";
 import { enqueueSnackbar } from "notistack";
+import {
+  Timeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineSeparator,
+} from "@mui/lab";
 
 const AdminBidsDetailPage = () => {
   useCloseBackdrop();
@@ -39,6 +52,9 @@ const AdminBidsDetailPage = () => {
   const { singleAdminBidData } = useSingleAdminBid(id);
   const updateAdminBidMutation = useUpdateAdminBid();
   const createBidHistoryMutation = useCreateBidHistory();
+
+  // ########### BID HISTORY ###########
+  const { adminBidHistoryData } = useAdminBidHistory(id);
   // console.log("singleAdminBidData", singleAdminBidData);
 
   const queryClient = useQueryClient();
@@ -244,7 +260,7 @@ const AdminBidsDetailPage = () => {
       <div className="flex items-center justify-between space-x-4">
         <IconButton
           color="primary"
-          className="font-outfit hover:bg-signInBgHover bg-signInBg normal-case text-white"
+          className="bg-signInBg font-outfit normal-case text-white hover:bg-signInBgHover"
           onClick={() => {
             router.push("/admin/bids");
             dispatch(setBackdropOpen());
@@ -252,170 +268,252 @@ const AdminBidsDetailPage = () => {
         >
           <MdOutlineKeyboardBackspace />
         </IconButton>
-        <div className="w-full">
+        <div className="mb-6 w-full">
           <Typography
             variant="h4"
-            className="font-outfit text-center text-xl font-bold md:text-2xl"
+            className="text-center font-outfit text-xl font-bold md:text-2xl"
           >
             Bid Details
           </Typography>
         </div>
       </div>
-      <form
-        // onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto flex max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md"
-      >
-        <div className="flex w-full flex-col space-y-5">
-          <Controller
-            name="quantity"
-            control={control}
-            rules={{
-              required: "Quantity is required",
-              // min: { value: 0, message: "Quantity must be greater than 0" },
-              validate: (value) =>
-                value > 0 || "Quantity must be greater than 0",
-            }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Quantity"
-                variant="outlined"
-                type="tel"
-                error={errors.quantity ? true : false}
-                helperText={errors.quantity ? errors.quantity.message : null}
-                InputProps={{
-                  endAdornment: (
-                    <Typography className="font-outfit ml-2">MWh</Typography>
-                  ),
-                  "aria-label": "Quantity",
-                  readOnly: true,
-                }}
-              />
-            )}
-          />
-          <Controller
-            name="start_time"
-            control={control}
-            rules={{
-              required: "Start time is required",
-            }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Start Time"
-                variant="outlined"
-                defaultValue={"2021-10-20T10:30Z"}
-                type="datetime-local"
-                error={errors.start_time ? true : false}
-                helperText={
-                  errors.start_time
-                    ? errors.start_time.message
-                    : "24 hours time format"
-                }
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            )}
-          />
-          <Controller
-            name="close_time"
-            control={control}
-            rules={{
-              required: "Close time is required",
-            }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Close Time"
-                variant="outlined"
-                type="datetime-local"
-                error={errors.close_time ? true : false}
-                helperText={
-                  errors.close_time
-                    ? errors.close_time.message
-                    : "24 hours time format"
-                }
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            )}
-          />
-          <Controller
-            name="price"
-            control={control}
-            rules={{
-              required: "Price is required",
-              validate: (value) => value > 0 || "Price must be greater than 0",
-            }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Price"
-                variant="outlined"
-                type="tel"
-                error={errors.price ? true : false}
-                helperText={errors.price ? errors.price.message : null}
-                InputProps={{
-                  endAdornment: (
-                    <Typography className="font-outfit ml-2 w-[5.8rem]">
-                      EUR/MWh
-                    </Typography>
-                  ),
-                  "aria-label": "Price",
-                  readOnly: true,
-                }}
-              />
-            )}
-          />
-        </div>
-        <div className="py-4">
-          {singleAdminBidData && singleAdminBidData.status === "Approved" && (
-            <Typography
-              variant="body2"
-              className="font-outfit text-xs text-emerald-500"
-            >
-              You can&apos;t update this bid because it is already approved.
-            </Typography>
-          )}
-          {singleAdminBidData && singleAdminBidData.status !== "Approved" && (
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="contained"
-                color="primary"
-                className="font-outfit bg-emerald-500 px-7 normal-case text-white hover:bg-emerald-800"
-                disabled={isSubmitting}
-                onClick={() => {
-                  handleAcceptBid(
-                    singleAdminBidData?.id as string,
-                    singleAdminBidData?.user?.id as number,
-                  );
-                }}
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <form
+          // onSubmit={handleSubmit(onSubmit)}
+          className="mx-auto flex h-fit max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 bg-white p-4 shadow-md"
+        >
+          <div className="flex w-full flex-col space-y-5">
+            <Controller
+              name="quantity"
+              control={control}
+              rules={{
+                required: "Quantity is required",
+                // min: { value: 0, message: "Quantity must be greater than 0" },
+                validate: (value) =>
+                  value > 0 || "Quantity must be greater than 0",
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Quantity"
+                  variant="outlined"
+                  type="tel"
+                  error={errors.quantity ? true : false}
+                  helperText={errors.quantity ? errors.quantity.message : null}
+                  InputProps={{
+                    endAdornment: (
+                      <Typography className="ml-2 font-outfit">MWh</Typography>
+                    ),
+                    "aria-label": "Quantity",
+                    readOnly: true,
+                  }}
+                />
+              )}
+            />
+            <Controller
+              name="start_time"
+              control={control}
+              rules={{
+                required: "Start time is required",
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Start Time"
+                  variant="outlined"
+                  defaultValue={"2021-10-20T10:30Z"}
+                  type="datetime-local"
+                  error={errors.start_time ? true : false}
+                  helperText={
+                    errors.start_time
+                      ? errors.start_time.message
+                      : "24 hours time format"
+                  }
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              )}
+            />
+            <Controller
+              name="close_time"
+              control={control}
+              rules={{
+                required: "Close time is required",
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Close Time"
+                  variant="outlined"
+                  type="datetime-local"
+                  error={errors.close_time ? true : false}
+                  helperText={
+                    errors.close_time
+                      ? errors.close_time.message
+                      : "24 hours time format"
+                  }
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              )}
+            />
+            <Controller
+              name="price"
+              control={control}
+              rules={{
+                required: "Price is required",
+                validate: (value) =>
+                  value > 0 || "Price must be greater than 0",
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Price"
+                  variant="outlined"
+                  type="tel"
+                  error={errors.price ? true : false}
+                  helperText={errors.price ? errors.price.message : null}
+                  InputProps={{
+                    endAdornment: (
+                      <Typography className="ml-2 w-[7.5rem] font-outfit">
+                        EUR/MWh
+                      </Typography>
+                    ),
+                    "aria-label": "Price",
+                    readOnly: true,
+                  }}
+                />
+              )}
+            />
+          </div>
+          <div className="py-4">
+            {singleAdminBidData && singleAdminBidData.status === "Approved" && (
+              <Typography
+                variant="body2"
+                className="font-outfit text-xs text-emerald-500"
               >
-                Approve
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                className="font-outfit bg-red-500 px-7 normal-case text-white hover:bg-red-800"
-                disabled={isSubmitting}
-                onClick={() => {
-                  handleOpenReasonDialog();
-                }}
-              >
-                Reject
-              </Button>
-            </div>
-          )}
+                You can&apos;t update this bid because it is already approved.
+              </Typography>
+            )}
+            {singleAdminBidData && singleAdminBidData.status !== "Approved" && (
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="bg-emerald-500 px-7 font-outfit normal-case text-white hover:bg-emerald-800"
+                  disabled={isSubmitting}
+                  onClick={() => {
+                    handleAcceptBid(
+                      singleAdminBidData?.id as string,
+                      singleAdminBidData?.user?.id as number,
+                    );
+                  }}
+                >
+                  Approve
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="bg-red-500 px-7 font-outfit normal-case text-white hover:bg-red-800"
+                  disabled={isSubmitting}
+                  onClick={() => {
+                    handleOpenReasonDialog();
+                  }}
+                >
+                  Reject
+                </Button>
+              </div>
+            )}
+          </div>
+        </form>
+        <div className="">
+          <div className="history_content rounded-md bg-white shadow-md">
+            <Timeline position="alternate">
+              {adminBidHistoryData &&
+                adminBidHistoryData.length > 0 &&
+                adminBidHistoryData.map(
+                  (history: ISingleHistory, index: number) => (
+                    <TimelineItem key={index}>
+                      <TimelineSeparator>
+                        <TimelineDot
+                          variant="outlined"
+                          color={
+                            history.status === "Approved"
+                              ? "success"
+                              : history.status === "Rejected"
+                                ? "error"
+                                : "primary"
+                          }
+                        />
+                        {index !== adminBidHistoryData.length - 1 && (
+                          <TimelineConnector />
+                        )}
+                      </TimelineSeparator>
+                      <TimelineContent>
+                        <div className="flex flex-col space-y-2">
+                          <Typography
+                            variant="body1"
+                            className="font-outfit font-semibold"
+                          >
+                            {history.name}
+                          </Typography>
+                          <div className="flex flex-col space-y-2">
+                            <Typography
+                              variant="body2"
+                              className="font-outfit text-xs"
+                            >
+                              quantity: {history.quantity} MWh
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              className=" font-outfit text-xs"
+                            >
+                              price: {history.price} €/MWh
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              className="font-outfit text-xs"
+                            >
+                              start:{" "}
+                              {dayjs(history.start_time).format(
+                                "MMM DD, YYYY HH:mm a",
+                              )}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              className="font-outfit text-xs"
+                            >
+                              close:{" "}
+                              {dayjs(history.close_time).format(
+                                "MMM DD, YYYY HH:mm a",
+                              )}
+                            </Typography>
+                            {history.status === "Rejected" && (
+                              <Typography
+                                variant="body2"
+                                className="font-outfit text-xs"
+                              >
+                                reason: {history.reason}
+                              </Typography>
+                            )}
+                          </div>
+                        </div>
+                      </TimelineContent>
+                    </TimelineItem>
+                  ),
+                )}
+            </Timeline>
+          </div>
         </div>
-      </form>
+      </div>
       <Dialog
         open={openReasonDialog}
         onClose={handleCloseReasonDialog}
@@ -426,7 +524,7 @@ const AdminBidsDetailPage = () => {
           Reason for rejection
         </DialogTitle>
         <DialogContent>
-          <DialogContentText className="font-outfit pb-4 text-gray-700">
+          <DialogContentText className="pb-4 font-outfit text-gray-700">
             Please enter the reason for rejecting the bid.
           </DialogContentText>
           <TextField
