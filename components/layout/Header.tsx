@@ -3,7 +3,7 @@ import { useProfile } from "@/hooks/authHooks";
 import { Container, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAppDispatch } from "@/shared/store/store";
 import { setBackdropOpen } from "@/shared/store/slices/backdropSlice";
 import { routes } from "@/shared/constants/routes";
@@ -13,7 +13,6 @@ import Image from "next/image";
 import logo_round from "@/public/logo_round.png";
 const HeaderComp = () => {
   const { profileData } = useProfile();
-  const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
   const handleNavLink = (link: string) => {
@@ -45,8 +44,10 @@ const HeaderComp = () => {
       maxAge: -1,
     });
     post_requests(routes.logout, {});
-    router.push("/");
-    window.location.reload();
+    // router.push("/");
+    // window.location.reload();
+    // redirect user to home page using window object
+    window.location.href = "/";
     handleNavLink(routes.home_page);
   };
   return (
