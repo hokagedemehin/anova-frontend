@@ -18,82 +18,84 @@ export default function Home() {
         <div className="flex h-full flex-col items-center justify-center border ">
           <Typography
             variant="h4"
-            className="font-outfit text-center text-base text-white md:text-xl"
+            className="text-center font-outfit text-base text-white md:text-xl"
           >
             Give electricity straight to the people
           </Typography>
           <Typography
             variant="h1"
-            className="font-outfit text-center text-3xl font-extrabold text-white md:text-5xl"
+            className="text-center font-outfit text-3xl font-extrabold text-white md:text-5xl"
           >
             Your best energy marketplace
           </Typography>
         </div>
       </div>
-      <div className="mx-auto w-full max-w-screen-xl bg-[#F6F7F7] px-6 py-10">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col items-center">
-            <CountUp
-              end={3200}
-              duration={3}
-              suffix=" +"
-              className="font-outfit text-center text-2xl font-semibold text-black md:text-4xl"
-            />
-            <Typography
-              variant="h4"
-              className="font-outfit text-center text-base font-semibold text-gray-500 md:text-xl"
-            >
-              Happy Customers
-            </Typography>
-          </div>
-          <div className="flex flex-col items-center">
-            <CountUp
-              end={1200}
-              duration={3}
-              suffix=" +"
-              className="font-outfit text-center text-2xl font-semibold text-black md:text-4xl"
-            />
-            <Typography
-              variant="h4"
-              className="font-outfit text-center text-base font-semibold text-gray-500 md:text-xl"
-            >
-              Power purchases made
-            </Typography>
-          </div>
-          <div className="flex flex-col items-center">
-            <CountUp
-              end={400}
-              duration={3}
-              suffix=" +"
-              className="font-outfit text-center text-2xl font-semibold text-black md:text-4xl"
-            />
-            <Typography
-              variant="h4"
-              className="font-outfit text-center text-base font-semibold text-gray-500 md:text-xl"
-            >
-              Energy Providers
-            </Typography>
+      <div className="bg-[#F6F7F7] px-6 py-10">
+        <div className="mx-auto w-full max-w-screen-xl  ">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col items-center">
+              <CountUp
+                end={3200}
+                duration={3}
+                suffix=" +"
+                className="text-center font-outfit text-2xl font-semibold text-black md:text-4xl"
+              />
+              <Typography
+                variant="h4"
+                className="text-center font-outfit text-base font-semibold text-gray-500 md:text-xl"
+              >
+                Happy Customers
+              </Typography>
+            </div>
+            <div className="flex flex-col items-center">
+              <CountUp
+                end={1200}
+                duration={3}
+                suffix=" +"
+                className="text-center font-outfit text-2xl font-semibold text-black md:text-4xl"
+              />
+              <Typography
+                variant="h4"
+                className="text-center font-outfit text-base font-semibold text-gray-500 md:text-xl"
+              >
+                Power purchases made
+              </Typography>
+            </div>
+            <div className="flex flex-col items-center">
+              <CountUp
+                end={400}
+                duration={3}
+                suffix=" +"
+                className="text-center font-outfit text-2xl font-semibold text-black md:text-4xl"
+              />
+              <Typography
+                variant="h4"
+                className="text-center font-outfit text-base font-semibold text-gray-500 md:text-xl"
+              >
+                Energy Providers
+              </Typography>
+            </div>
           </div>
         </div>
       </div>
-      <div className=" mx-auto flex w-full max-w-screen-xl flex-col items-center justify-between gap-4 px-6 md:flex-row">
+      <div className=" mx-auto flex w-full max-w-screen-xl flex-col items-center justify-between gap-4 px-3 md:flex-row">
         <div className="flex flex-col space-y-3">
           <Typography
             variant="h6"
-            className="font-outfit text-left text-base font-medium md:text-xl"
+            className="text-left font-outfit text-base font-medium md:text-xl"
           >
             Get a business energy bid
           </Typography>
           <Typography
             variant="body2"
-            className="font-outfit w-[80%] text-left text-xs font-light text-gray-400 md:text-sm"
+            className="w-[80%] text-left font-outfit text-xs font-light text-gray-400 md:text-sm"
           >
             Fixed-price plans to fully flexible contracts, we have business gas
             and electricity tarrifs that suit every business size and need.
           </Typography>
           <Typography
             variant="body2"
-            className="font-outfit w-[80%] text-left text-xs font-light text-gray-400 md:text-sm"
+            className="w-[80%] text-left font-outfit text-xs font-light text-gray-400 md:text-sm"
           >
             We work with a range of energy suppliers to bring you the best
             business energy deals on the market. We can help you find the right
@@ -103,7 +105,7 @@ export default function Home() {
             <Link href="/bids">
               <Button
                 variant="contained"
-                className="font-outfit bg-[#FF5C00] normal-case text-white hover:bg-[#ab4103]"
+                className="bg-[#FF5C00] font-outfit normal-case text-white hover:bg-[#ab4103]"
               >
                 Get a business energy bid
               </Button>
@@ -122,21 +124,21 @@ export default function Home() {
       <div className="space-y-3 bg-[#002D72] px-6 py-10">
         <Typography
           variant="h6"
-          className="font-outfit text-center text-xl font-medium text-white md:text-3xl"
+          className="text-center font-outfit text-xl font-medium text-white md:text-3xl"
         >
           Powering the renewable energy economy
         </Typography>
         <div className="mx-auto w-[80%]">
           <Typography
             variant="body2"
-            className="font-outfit text-center text-xs font-light text-gray-400 md:text-sm"
+            className="text-center font-outfit text-xs font-light text-gray-400 md:text-sm"
           >
             Anova marketplace is the leading energy marketplace and provider of
             renewable energy, supplying over 1.5 million homes and businesses
             with green electricity and green gas.
           </Typography>
         </div>
-        <div className="flex flex-col gap-5 md:flex-row md:items-center">
+        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-center">
           <div className=" rounded-sm bg-[#2A4570] ">
             <div className="flex flex-col items-center justify-center px-8 pt-4">
               <Image
@@ -149,7 +151,7 @@ export default function Home() {
               />
               <Typography
                 variant="body2"
-                className="font-outfit py-3 text-center text-xl font-medium text-white md:text-2xl"
+                className="py-3 text-center font-outfit text-xl font-medium text-white md:text-2xl"
               >
                 Energy buyers & sellers
               </Typography>
@@ -158,7 +160,7 @@ export default function Home() {
             <div className="mx-auto flex flex-col items-center justify-center px-8 pb-4 md:w-[70%]">
               <Typography
                 variant="body2"
-                className="font-outfit text-center text-xs font-light text-gray-400 md:text-sm"
+                className="text-center font-outfit text-xs font-light text-gray-400 md:text-sm"
               >
                 Find high-value, low-risks energy contracts and bids from
                 verified energy buyers and sellers.
@@ -177,7 +179,7 @@ export default function Home() {
               />
               <Typography
                 variant="body2"
-                className="font-outfit py-3 text-center text-xl font-medium text-white md:text-2xl"
+                className="py-3 text-center font-outfit text-xl font-medium text-white md:text-2xl"
               >
                 Energy buyers & sellers
               </Typography>
@@ -186,7 +188,7 @@ export default function Home() {
             <div className="mx-auto flex flex-col items-center justify-center px-8 pb-4 md:w-[70%]">
               <Typography
                 variant="body2"
-                className="font-outfit text-center text-xs font-light text-gray-400 md:text-sm"
+                className="text-center font-outfit text-xs font-light text-gray-400 md:text-sm"
               >
                 Find high-value, low-risks energy contracts and bids from
                 verified energy buyers and sellers.

@@ -50,16 +50,14 @@ const HeaderComp = () => {
     handleNavLink(routes.home_page);
   };
   return (
-    <header>
-      <Container
-        maxWidth="2xl"
-        className={`${
-          !headerColor
-            ? "bg-transparent"
-            : "border border-x-0 border-b-2 border-t-0 border-gray-100 bg-white bg-opacity-60 backdrop-blur-lg backdrop-filter "
-        } fixed z-10 flex items-center justify-between  py-2 transition duration-300 ease-in-out`}
-        // className=" fixed z-10 flex items-center justify-between border border-x-0 border-b-2 border-t-0 border-gray-100 bg-white py-2 "
-      >
+    <header
+      className={`${
+        !headerColor
+          ? "bg-transparent"
+          : "border border-x-0 border-b-2 border-t-0 border-gray-100 bg-white bg-opacity-60 backdrop-blur-lg backdrop-filter "
+      } fixed z-10 flex w-full items-center  justify-between py-2 transition duration-300 ease-in-out`}
+    >
+      <Container maxWidth="2xl" className=" flex items-center justify-between ">
         <Link href="/">
           {/* <Typography className="font-outfit text-xl font-bold md:text-2xl">
             Anova Bids
