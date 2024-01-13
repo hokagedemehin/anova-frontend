@@ -18,7 +18,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import React, { useState } from "react";
 import { useCloseBackdrop } from "@/hooks/backdrop";
-import { GithubLoginButton } from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import { useSignUp } from "@/hooks/authHooks";
 import { enqueueSnackbar } from "notistack";
 import { setCookie } from "nookies";
@@ -69,13 +69,11 @@ const SignupPage = () => {
       signUpMutation.mutate(data, {
         onSuccess: (data: any) => {
           setCookie(null, "anova_token", data?.data?.key, {
-            // path: "/",
             maxAge: 30 * 24 * 60 * 60,
             sameSite: "lax",
           });
           router.push("/bids");
           window.location.reload();
-          // window.location.href = "/bids";
           reset();
           dispatch(setBackdropClose());
           enqueueSnackbar("Sign up successfully", { variant: "success" });
@@ -150,7 +148,6 @@ const SignupPage = () => {
                     <TextField
                       {...field}
                       variant="outlined"
-                      // placeholder="First Name"
                       size="small"
                       error={!!errors.first_name}
                       helperText={
@@ -225,9 +222,6 @@ const SignupPage = () => {
                   />
                 )}
               />
-              {/* {errors.email && (
-              
-            )} */}
             </div>
             <div className=" mt-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
               <div className=" flex flex-col space-y-1">
@@ -278,9 +272,6 @@ const SignupPage = () => {
                     />
                   )}
                 />
-                {/* {errors.password1 && (
-                
-              )} */}
               </div>
               <div className="flex flex-col space-y-1">
                 <Typography variant="body2" className="font-outfit font-bold">
@@ -299,17 +290,13 @@ const SignupPage = () => {
                     <TextField
                       {...field}
                       variant="outlined"
-                      // placeholder="Confirm Password"
                       size="small"
                       type={showPassword ? "text" : "password"}
                       InputProps={{
                         endAdornment: (
                           <IconButton onClick={handleShowPassword}>
                             {showPassword ? (
-                              <VisibilityOffOutlinedIcon
-                                className="text-lg md:text-2xl"
-                                // fontSize="small"
-                              />
+                              <VisibilityOffOutlinedIcon className="text-lg md:text-2xl" />
                             ) : (
                               <VisibilityOutlinedIcon className="text-lg md:text-2xl" />
                             )}
@@ -361,12 +348,10 @@ const SignupPage = () => {
                 Or continue with
               </Typography>
               <div className="mt-4 flex flex-col items-center">
-                <GithubLoginButton
-                  className="w-full transform  bg-[#24292e] text-white transition   duration-500 ease-in-out hover:bg-[#3d4852] md:w-[20rem]"
-                  onClick={async () => {
+                <GoogleLoginButton
+                  onClick={() => {
                     window.location.assign(
-                      // "https://github.com/login/oauth/authorize?client_id=2cbe7be3c82bc87b718d&redirect_uri=http://localhost:3000/verify/&scope=user",
-                      `${process.env.NEXT_PUBLIC_GITHUB_URL}?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI}&scope=user`,
+                      `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&prompt=consent&response_type=code&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`,
                     );
                   }}
                 >
@@ -374,9 +359,9 @@ const SignupPage = () => {
                     variant="body2"
                     className="font-outfit font-bold normal-case"
                   >
-                    Login with Github
+                    Login with Google
                   </Typography>
-                </GithubLoginButton>
+                </GoogleLoginButton>
               </div>
             </div>
 

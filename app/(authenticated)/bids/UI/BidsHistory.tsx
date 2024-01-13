@@ -25,11 +25,6 @@ const BidsHistory = () => {
         open={open}
         sx={{
           "& .MuiDrawer-paper": {
-            // width: "60%",
-            // maxWidth: "100%",
-            // top: "4rem",
-            // height: "100%",
-            // maxHeight: "100%",
             borderRadius: "1rem 0 0 1rem",
           },
         }}
@@ -39,7 +34,7 @@ const BidsHistory = () => {
           <div className="flex items-center justify-between">
             <Typography
               variant="h4"
-              className="font-outfit text-center text-xl font-bold md:text-2xl"
+              className="text-center font-outfit text-xl font-bold md:text-2xl"
             >
               History
             </Typography>

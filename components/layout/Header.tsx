@@ -38,15 +38,12 @@ const HeaderComp = () => {
     };
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // destroyCookie(null, "anova_token");
+    await post_requests(routes.logout, {});
     setCookie(null, "anova_token", "", {
       maxAge: -1,
     });
-    post_requests(routes.logout, {});
-    // router.push("/");
-    // window.location.reload();
-    // redirect user to home page using window object
     window.location.href = "/";
     handleNavLink(routes.home_page);
   };
@@ -60,9 +57,6 @@ const HeaderComp = () => {
     >
       <Container maxWidth="2xl" className=" flex items-center justify-between ">
         <Link href="/">
-          {/* <Typography className="font-outfit text-xl font-bold md:text-2xl">
-            Anova Bids
-          </Typography> */}
           <Image
             src={logo_round}
             alt="logo"
@@ -125,7 +119,6 @@ const HeaderComp = () => {
           )}
         </div>
       </Container>
-      {/* <div className="pb-[4rem]"></div> */}
     </header>
   );
 };

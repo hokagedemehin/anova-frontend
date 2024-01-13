@@ -55,14 +55,12 @@ const AdminBidsDetailPage = () => {
 
   // ########### BID HISTORY ###########
   const { adminBidHistoryData } = useAdminBidHistory(id);
-  // console.log("singleAdminBidData", singleAdminBidData);
 
   const queryClient = useQueryClient();
 
   // ***** REACT HOOK FORM ***** //
   const {
     control,
-    // handleSubmit,
     formState: { errors, isSubmitting },
     reset,
     setValue,
@@ -278,17 +276,13 @@ const AdminBidsDetailPage = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <form
-          // onSubmit={handleSubmit(onSubmit)}
-          className="mx-auto flex h-fit max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 bg-white p-4 shadow-md"
-        >
+        <form className="mx-auto flex h-fit max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 bg-white p-4 shadow-md">
           <div className="flex w-full flex-col space-y-5">
             <Controller
               name="quantity"
               control={control}
               rules={{
                 required: "Quantity is required",
-                // min: { value: 0, message: "Quantity must be greater than 0" },
                 validate: (value) =>
                   value > 0 || "Quantity must be greater than 0",
               }}

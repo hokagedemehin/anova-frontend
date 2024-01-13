@@ -6,7 +6,6 @@ export function PushRouter() {
   const pathname = usePathname();
   const pushRoute = useCallback(
     (path: string) => {
-      // router.push(path);
       if (pathname !== path) {
         router.push(path);
       }
@@ -23,7 +22,6 @@ export function ReplaceRouter() {
 
   const replaceRoute = useCallback(
     (path: string) => {
-      // router.replace(path);
       if (pathname !== path) {
         router.replace(path);
       }

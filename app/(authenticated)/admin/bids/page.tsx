@@ -444,7 +444,6 @@ const AdminBidsPage = () => {
           icon={<TiCancelOutline className="text-red-500" />}
           label="Reject"
           onClick={() => {
-            // handleRejectBid(params.id as string, params.row.userId as number);
             handleOpenReasonDialog();
             handleSelectedBid(params.row);
           }}

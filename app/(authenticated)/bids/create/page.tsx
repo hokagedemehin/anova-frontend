@@ -80,10 +80,6 @@ const CreateBid = () => {
               }
             },
           });
-          // dispatch(setBackdropClose());
-          // enqueueSnackbar("Bid created successfully", {
-          //   variant: "success",
-          // });
           router.push("/bids");
         },
         onError: (error) => {
@@ -129,7 +125,6 @@ const CreateBid = () => {
               control={control}
               rules={{
                 required: "Quantity is required",
-                // min: { value: 0, message: "Quantity must be greater than 0" },
                 validate: (value) =>
                   value > 0 || "Quantity must be greater than 0",
               }}

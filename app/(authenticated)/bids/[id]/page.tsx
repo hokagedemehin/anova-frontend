@@ -175,7 +175,6 @@ const BidUpdate = () => {
               control={control}
               rules={{
                 required: "Quantity is required",
-                // min: { value: 0, message: "Quantity must be greater than 0" },
                 validate: (value) =>
                   value > 0 || "Quantity must be greater than 0",
               }}

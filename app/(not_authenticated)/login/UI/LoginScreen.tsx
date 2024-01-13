@@ -21,7 +21,7 @@ import {
   setBackdropClose,
   setBackdropOpen,
 } from "@/shared/store/slices/backdropSlice";
-import { GithubLoginButton } from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import { AxiosError } from "axios";
 import Link from "next/link";
 
@@ -74,7 +74,6 @@ const LoginScreen = () => {
           enqueueSnackbar("Login successfully", { variant: "success" });
         },
         onError: (error) => {
-          // console.error(error);
           if (error instanceof AxiosError) {
             if (error?.response?.data?.non_field_errors) {
               enqueueSnackbar(error?.response?.data?.non_field_errors[0], {
@@ -144,9 +143,6 @@ const LoginScreen = () => {
                   />
                 )}
               />
-              {/* {errors.email && (
-                
-              )} */}
             </div>
             <div className="mt-3 flex flex-col space-y-1">
               <Typography variant="body2" className="font-outfit font-bold">
@@ -157,10 +153,6 @@ const LoginScreen = () => {
                 control={control}
                 rules={{
                   required: "Password is required",
-                  // minLength: {
-                  //   value: 8,
-                  //   message: "Password must be at least 8 characters",
-                  // },
                 }}
                 render={({ field }) => (
                   <TextField
@@ -189,16 +181,6 @@ const LoginScreen = () => {
                   />
                 )}
               />
-              {/* <div className="mt-2 flex justify-end">
-                <Link href="/forgot-password" onClick={handleLinksClick}>
-                  <Typography
-                    variant="body2"
-                    className="font-outfit text-xs text-gray-500 hover:text-gray-700"
-                  >
-                    Forgot Password?
-                  </Typography>
-                </Link>
-              </div> */}
             </div>
             <div className="mt-8 flex flex-col items-center">
               <Button
@@ -230,29 +212,11 @@ const LoginScreen = () => {
             >
               Or continue with
             </Typography>
-            <div className="mt-4 flex flex-col items-center">
-              <GithubLoginButton
-                className="w-full transform  bg-[#24292e] text-white transition   duration-500 ease-in-out hover:bg-[#3d4852] md:w-[20rem]"
+            <div className="mt-4 flex flex-col items-center space-y-4">
+              <GoogleLoginButton
                 onClick={() => {
-                  // fetch(
-                  //   "https://github.com/login/oauth/authorize?client_id=2cbe7be3c82bc87b718d&redirect_uri=http://localhost:3000/verify&scope=user",
-                  //   {
-                  //     method: "GET",
-                  //     headers: {
-                  //       Accept: "application/json",
-                  //       "Content-Type": "application/json",
-                  //     },
-                  //   },
-                  // )
-                  //   .then((res) => {
-                  //     console.log("res", res);
-                  //   })
-                  //   .catch((err) => {
-                  //     console.log("err", err);
-                  //   });
                   window.location.assign(
-                    // "https://github.com/login/oauth/authorize?client_id=2cbe7be3c82bc87b718d&redirect_uri=http://localhost:3000/verify&scope=user",
-                    `${process.env.NEXT_PUBLIC_GITHUB_URL}?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI}&scope=user`,
+                    `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&prompt=consent&response_type=code&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`,
                   );
                 }}
               >
@@ -260,9 +224,9 @@ const LoginScreen = () => {
                   variant="body2"
                   className="font-outfit font-bold normal-case"
                 >
-                  Login with Github
+                  Login with Google
                 </Typography>
-              </GithubLoginButton>
+              </GoogleLoginButton>
             </div>
           </div>
           <div className="mt-4  flex items-center justify-center">
