@@ -1,4 +1,4 @@
-import { ILogin } from "@/interface/authTypes";
+import { ILogin, ISignUp } from "@/interface/authTypes";
 import { routes } from "@/shared/constants/routes";
 import { get_requests, post_requests } from "@/shared/helpers/axios_helpers";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -26,4 +26,21 @@ export const useProfile = () => {
     isLoading,
     isError,
   };
+};
+
+export const useGithubLogin = () => {
+  const githubMutation = useMutation({
+    mutationFn: (data: { code: string }) =>
+      post_requests(routes.githubLogin, data),
+  });
+
+  return githubMutation;
+};
+
+export const useSignUp = () => {
+  const signUpMutation = useMutation({
+    mutationFn: (data: ISignUp) => post_requests(routes.signup, data),
+  });
+
+  return signUpMutation;
 };

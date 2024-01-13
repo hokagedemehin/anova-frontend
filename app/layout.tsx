@@ -24,13 +24,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${outfit.variable} bg-white bg-opacity-50 bg-[url('https://res.cloudinary.com/luvely/image/upload/v1705068603/polygon-scatter-haikei_3_kpjwbx.png')]  bg-contain bg-repeat backdrop-blur-[2px] backdrop-filter`}
-      >
+      <body className={`${outfit.variable} `}>
         <ProjectProviders>
-          <HeaderComp />
-          {children}
-          <Footer />
+          <div className="bg-white bg-opacity-50 bg-[url('https://res.cloudinary.com/luvely/image/upload/v1705068603/polygon-scatter-haikei_3_kpjwbx.png')] bg-contain bg-repeat  backdrop-filter">
+            <HeaderComp />
+            {children}
+            <Footer />
+          </div>
         </ProjectProviders>
       </body>
     </html>

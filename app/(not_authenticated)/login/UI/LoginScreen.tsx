@@ -4,7 +4,13 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { enqueueSnackbar } from "notistack";
-import { Button, IconButton, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Divider,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import CustomBackdrop from "@/components/backdrop/CustomBackdrop";
 import { useCloseBackdrop } from "@/hooks/backdrop";
 import { useLogin } from "@/hooks/authHooks";
@@ -15,7 +21,9 @@ import {
   setBackdropClose,
   setBackdropOpen,
 } from "@/shared/store/slices/backdropSlice";
+import { GithubLoginButton } from "react-social-login-buttons";
 import { AxiosError } from "axios";
+import Link from "next/link";
 
 interface IFormInput {
   email: string;
@@ -29,6 +37,9 @@ const LoginScreen = () => {
   // **** SHOW PASSWORD **** //
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleLinksClick = () => {
+    dispatch(setBackdropOpen());
+  };
 
   // ***** REACT HOOK FORM ***** //
   const {
@@ -57,6 +68,7 @@ const LoginScreen = () => {
           });
           router.push("/bids");
           window.location.reload();
+          // window.location.href = "/bids";
           reset();
 
           enqueueSnackbar("Login successfully", { variant: "success" });
@@ -94,7 +106,7 @@ const LoginScreen = () => {
         >
           Welcome Back
         </Typography>
-        <div className="mt-4 h-full md:px-6">
+        <div className="mt-4 h-full rounded-md bg-white p-4 shadow-md md:px-6">
           <form
             className="flex h-full w-full flex-col justify-between md:px-6 "
             onSubmit={handleSubmit(onSubmit)}
@@ -208,6 +220,66 @@ const LoginScreen = () => {
               </Button>
             </div>
           </form>
+          <div className="">
+            <Divider className="my-4" />
+          </div>
+          <div className="">
+            <Typography
+              variant="body2"
+              className="text-center font-outfit text-xs font-semibold"
+            >
+              Or continue with
+            </Typography>
+            <div className="mt-4 flex flex-col items-center">
+              <GithubLoginButton
+                className="w-full transform  bg-[#24292e] text-white transition   duration-500 ease-in-out hover:bg-[#3d4852] md:w-[20rem]"
+                onClick={() => {
+                  // fetch(
+                  //   "https://github.com/login/oauth/authorize?client_id=2cbe7be3c82bc87b718d&redirect_uri=http://localhost:3000/verify&scope=user",
+                  //   {
+                  //     method: "GET",
+                  //     headers: {
+                  //       Accept: "application/json",
+                  //       "Content-Type": "application/json",
+                  //     },
+                  //   },
+                  // )
+                  //   .then((res) => {
+                  //     console.log("res", res);
+                  //   })
+                  //   .catch((err) => {
+                  //     console.log("err", err);
+                  //   });
+                  window.location.assign(
+                    // "https://github.com/login/oauth/authorize?client_id=2cbe7be3c82bc87b718d&redirect_uri=http://localhost:3000/verify&scope=user",
+                    `${process.env.NEXT_PUBLIC_GITHUB_URL}?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI}&scope=user`,
+                  );
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  className="font-outfit font-bold normal-case"
+                >
+                  Login with Github
+                </Typography>
+              </GithubLoginButton>
+            </div>
+          </div>
+          <div className="mt-4  flex items-center justify-center">
+            <Typography
+              variant="body2"
+              className="font-outfit text-sm text-gray-500"
+            >
+              Don&apos;t have an account?
+            </Typography>
+            <Link
+              href="/signup"
+              onClick={handleLinksClick}
+              className="ml-2 font-outfit  text-sm normal-case text-signInAlt"
+            >
+              Sign Up
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 export const routes = {
   // ***** BACKEND ROUTES *****
   login: "/dj-rest-auth/login/",
+  githubLogin: "/dj-rest-auth/github/",
   logout: "/dj-rest-auth/logout/",
   password_change: "/dj-rest-auth/password/change/",
   password_reset: "/dj-rest-auth/password/reset/",

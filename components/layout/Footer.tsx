@@ -24,7 +24,7 @@ const Footer = () => {
 
             {/* <!-- link nav - start --> */}
             <div>
-              <Typography className="mb-4 font-outfit font-bold uppercase tracking-widest text-gray-100">
+              <Typography className="mb-4 font-outfit font-bold normal-case tracking-widest text-gray-100">
                 Privacy Policy
               </Typography>
             </div>
@@ -32,7 +32,7 @@ const Footer = () => {
 
             {/* <!-- about us nav - start --> */}
             <div>
-              <Typography className="mb-4 font-outfit font-bold uppercase tracking-widest text-gray-100">
+              <Typography className="mb-4 font-outfit font-bold normal-case tracking-widest text-gray-100">
                 Cookies Policy
               </Typography>
             </div>
@@ -40,7 +40,7 @@ const Footer = () => {
 
             {/* <!-- nav - start --> */}
             <div className="col-span-2">
-              <Typography className="mb-4 font-bold uppercase tracking-widest text-gray-100">
+              <Typography className="mb-4 font-bold normal-case tracking-widest text-gray-100">
                 Terms of use
               </Typography>
             </div>

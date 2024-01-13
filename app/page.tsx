@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <CustomBackdrop />
-      <div className="h-[50vh] w-[100vw]  bg-[url('https://res.cloudinary.com/luvely/image/upload/v1705017159/anova/Rectangle_7_kcrczp.png')] bg-cover bg-no-repeat">
+      <div className="h-[50vh] bg-[url('https://res.cloudinary.com/luvely/image/upload/v1705017159/anova/Rectangle_7_kcrczp.png')] bg-cover bg-no-repeat">
         <div className="flex h-full flex-col items-center justify-center border ">
           <Typography
             variant="h4"
@@ -78,7 +78,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className=" mx-auto flex w-full max-w-screen-xl flex-col items-center justify-between gap-4 px-3 md:flex-row">
+      <div className=" mx-auto flex w-full max-w-screen-xl flex-col items-center justify-between gap-4 px-3 py-8 md:flex-row">
         <div className="flex flex-col space-y-3">
           <Typography
             variant="h6"
