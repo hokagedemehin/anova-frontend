@@ -11,6 +11,7 @@ const VerifyLogin = () => {
   const searchParams = useSearchParams();
 
   const code = searchParams.get("code");
+  console.log("code", code);
   const googleMutation = useGoogleLogins();
   const router = useRouter();
   useEffect(() => {

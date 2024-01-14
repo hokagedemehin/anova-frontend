@@ -39,8 +39,11 @@ export const useGithubLogin = () => {
 
 export const useGoogleLogins = () => {
   const googleMutation = useMutation({
-    mutationFn: (data: { code: string }) =>
-      post_requests(routes.googleLogin, data),
+    mutationFn: (data: {
+      code?: string;
+      id_token?: string;
+      access_token?: string;
+    }) => post_requests(routes.googleLogin, data),
   });
 
   return googleMutation;
