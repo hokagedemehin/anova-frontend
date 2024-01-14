@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Typography } from "@mui/material";
 import { useGoogleLogins } from "@/hooks/authHooks";
-// import { setCookie } from "nookies";
+import { setCookie } from "nookies";
 import { enqueueSnackbar } from "notistack";
 import { AxiosError } from "axios";
 
@@ -11,7 +11,6 @@ const VerifyLogin = () => {
   const searchParams = useSearchParams();
 
   const code = searchParams.get("code");
-  console.log("code", code);
   const googleMutation = useGoogleLogins();
   const router = useRouter();
   useEffect(() => {
@@ -20,15 +19,14 @@ const VerifyLogin = () => {
       try {
         googleMutation.mutate(form_data, {
           onSuccess: (data: any) => {
-            console.log("data", data);
             enqueueSnackbar("Login successfully", { variant: "success" });
-            // setCookie(null, "anova_token", data?.data?.key, {
-            //   // path: "/",
-            //   maxAge: 30 * 24 * 60 * 60,
-            //   sameSite: "lax",
-            // });
-            // router.push("/bids");
-            // window.location.reload();
+            setCookie(null, "anova_token", data?.data?.key, {
+              // path: "/",
+              maxAge: 30 * 24 * 60 * 60,
+              sameSite: "lax",
+            });
+            router.push("/bids");
+            window.location.reload();
           },
           onError: (error) => {
             if (error instanceof AxiosError) {
