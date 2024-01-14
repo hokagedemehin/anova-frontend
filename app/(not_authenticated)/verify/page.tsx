@@ -16,35 +16,41 @@ const VerifyLogin = () => {
   useEffect(() => {
     if (code) {
       const form_data = { code };
-      googleMutation.mutate(form_data, {
-        onSuccess: (data: any) => {
-          setCookie(null, "anova_token", data?.data?.key, {
-            // path: "/",
-            maxAge: 30 * 24 * 60 * 60,
-            sameSite: "lax",
-          });
-          router.push("/bids");
-          window.location.reload();
-
-          enqueueSnackbar("Login successfully", { variant: "success" });
-        },
-        onError: (error) => {
-          if (error instanceof AxiosError) {
-            if (error?.response?.data?.non_field_errors) {
-              enqueueSnackbar(error?.response?.data?.non_field_errors[0], {
-                variant: "error",
-              });
-            } else {
-              enqueueSnackbar("Something went wrong, please try again later.", {
-                variant: "error",
-              });
+      try {
+        googleMutation.mutate(form_data, {
+          onSuccess: (data: any) => {
+            enqueueSnackbar("Login successfully", { variant: "success" });
+            setCookie(null, "anova_token", data?.data?.key, {
+              // path: "/",
+              maxAge: 30 * 24 * 60 * 60,
+              sameSite: "lax",
+            });
+            router.push("/bids");
+            window.location.reload();
+          },
+          onError: (error) => {
+            if (error instanceof AxiosError) {
+              if (error?.response?.data?.non_field_errors) {
+                enqueueSnackbar(error?.response?.data?.non_field_errors[0], {
+                  variant: "error",
+                });
+              } else {
+                enqueueSnackbar(
+                  "Something went wrong, please try again later.",
+                  {
+                    variant: "error",
+                  },
+                );
+              }
             }
-          }
-          enqueueSnackbar("Something went wrong, please try again later.", {
-            variant: "error",
-          });
-        },
-      });
+            router.push("/login");
+          },
+        });
+      } catch (error) {
+        enqueueSnackbar("Something went wrong, please try again later.", {
+          variant: "error",
+        });
+      }
     } else if (code === null) {
       router.push("/login");
     }
