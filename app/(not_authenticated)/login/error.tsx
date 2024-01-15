@@ -14,7 +14,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error);
+    // console.error(error);
   }, [error]);
 
   const router = useRouter();
@@ -29,13 +29,13 @@ export default function Error({
         className="h-[20rem] w-full object-contain"
         placeholder="blur"
       />
-      <Typography variant="h5" className="font-outfit text-center">
+      <Typography variant="h5" className="text-center font-outfit">
         Something went wrong on the server.
       </Typography>
       <Button
         variant="contained"
         color="primary"
-        className="bg-signInBg font-outfit hover:bg-signInBgHover mt-2 normal-case "
+        className="mt-2 bg-signInBg font-outfit normal-case hover:bg-signInBgHover "
         onClick={() => router.push("/")}
       >
         Go Back
