@@ -10,6 +10,8 @@ To run the code locally, all you need to do is the following:
 
 ```bash
 NEXT_PUBLIC_BACKEND_URL="https://anova-api-426ae379974e.herokuapp.com"
+NEXT_PUBLIC_GOOGLE_REDIRECT_URI=http://localhost:3000/verify
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=263134682350-4qo6ajjm668o6n4umeiustqkplhgneee.apps.googleusercontent.com
 ```
 
 - Run the development server with `npm run dev`
