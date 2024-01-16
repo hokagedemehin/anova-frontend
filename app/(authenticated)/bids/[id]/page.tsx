@@ -170,115 +170,135 @@ const BidUpdate = () => {
           className="mx-auto flex max-w-screen-sm flex-col items-center justify-center space-y-4 rounded-md border border-gray-50 bg-white p-4 shadow-md"
         >
           <div className="flex w-full flex-col space-y-5">
-            <Controller
-              name="quantity"
-              control={control}
-              rules={{
-                required: "Quantity is required",
-                validate: (value) =>
-                  value > 0 || "Quantity must be greater than 0",
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Quantity"
-                  variant="outlined"
-                  type="tel"
-                  error={errors.quantity ? true : false}
-                  helperText={errors.quantity ? errors.quantity.message : null}
-                  InputProps={{
-                    endAdornment: (
-                      <Typography className="ml-2 font-outfit">MWh</Typography>
-                    ),
-                    "aria-label": "Quantity",
-                    readOnly: singleBidData?.status === "Approved",
-                  }}
-                />
-              )}
-            />
-            <Controller
-              name="start_time"
-              control={control}
-              rules={{
-                required: "Start time is required",
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Start Time"
-                  variant="outlined"
-                  defaultValue={"2021-10-20T10:30Z"}
-                  type="datetime-local"
-                  error={errors.start_time ? true : false}
-                  helperText={
-                    errors.start_time
-                      ? errors.start_time.message
-                      : "24 hours time format"
-                  }
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{
-                    readOnly: singleBidData?.status === "Approved",
-                  }}
-                />
-              )}
-            />
-            <Controller
-              name="close_time"
-              control={control}
-              rules={{
-                required: "Close time is required",
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Close Time"
-                  variant="outlined"
-                  type="datetime-local"
-                  error={errors.close_time ? true : false}
-                  helperText={
-                    errors.close_time
-                      ? errors.close_time.message
-                      : "24 hours time format"
-                  }
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{
-                    readOnly: singleBidData?.status === "Approved",
-                  }}
-                />
-              )}
-            />
-            <Controller
-              name="price"
-              control={control}
-              rules={{
-                required: "Price is required",
-                validate: (value) =>
-                  value > 0 || "Price must be greater than 0",
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Price"
-                  variant="outlined"
-                  type="tel"
-                  error={errors.price ? true : false}
-                  helperText={errors.price ? errors.price.message : null}
-                  InputProps={{
-                    endAdornment: (
-                      <Typography className="ml-2 w-[5.8rem] font-outfit">
-                        EUR/MWh
-                      </Typography>
-                    ),
-                    "aria-label": "Price",
-                    readOnly: singleBidData?.status === "Approved",
-                  }}
-                />
-              )}
-            />
+            <div className="flex flex-col space-y-2">
+              <Typography className="font-outfit text-base font-semibold">
+                Quantity
+              </Typography>
+              <Controller
+                name="quantity"
+                control={control}
+                rules={{
+                  required: "Quantity is required",
+                  validate: (value) =>
+                    value > 0 || "Quantity must be greater than 0",
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    type="tel"
+                    error={errors.quantity ? true : false}
+                    helperText={
+                      errors.quantity ? errors.quantity.message : null
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <Typography className="ml-2 font-outfit">
+                          MWh
+                        </Typography>
+                      ),
+                      "aria-label": "Quantity",
+                      readOnly: singleBidData?.status === "Approved",
+                    }}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <Typography className="font-outfit text-base font-semibold">
+                Start Time
+              </Typography>
+              <Controller
+                name="start_time"
+                control={control}
+                rules={{
+                  required: "Start time is required",
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    defaultValue={"2021-10-20T10:30Z"}
+                    type="datetime-local"
+                    error={errors.start_time ? true : false}
+                    helperText={
+                      errors.start_time
+                        ? errors.start_time.message
+                        : "24 hours time format"
+                    }
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    InputProps={{
+                      readOnly: singleBidData?.status === "Approved",
+                    }}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <Typography className="font-outfit text-base font-semibold">
+                Close Time
+              </Typography>
+              <Controller
+                name="close_time"
+                control={control}
+                rules={{
+                  required: "Close time is required",
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    type="datetime-local"
+                    error={errors.close_time ? true : false}
+                    helperText={
+                      errors.close_time
+                        ? errors.close_time.message
+                        : "24 hours time format"
+                    }
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    InputProps={{
+                      readOnly: singleBidData?.status === "Approved",
+                    }}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <Typography className="font-outfit text-base font-semibold">
+                Price
+              </Typography>
+              <Controller
+                name="price"
+                control={control}
+                rules={{
+                  required: "Price is required",
+                  validate: (value) =>
+                    value > 0 || "Price must be greater than 0",
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    type="tel"
+                    error={errors.price ? true : false}
+                    helperText={errors.price ? errors.price.message : null}
+                    InputProps={{
+                      endAdornment: (
+                        <Typography className="ml-2 w-[5.8rem] font-outfit">
+                          EUR/MWh
+                        </Typography>
+                      ),
+                      "aria-label": "Price",
+                      readOnly: singleBidData?.status === "Approved",
+                    }}
+                  />
+                )}
+              />
+            </div>
             {singleBidData?.status === "Rejected" && (
               <div className="flex flex-col space-y-1">
                 <Typography variant="body2" className="font-outfit font-bold">
